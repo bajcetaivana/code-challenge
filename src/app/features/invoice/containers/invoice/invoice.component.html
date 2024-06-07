@@ -1,0 +1,9 @@
+<h2 class="invoice-page-header">Invoices</h2>
+@if(invoices$ | async; as invoices) { 
+	@for(invoice of invoices; track invoice;) {
+		<div class="invoice"><app-invoice-item [invoice]="invoice"></app-invoice-item></div>
+	} 
+	@if(invoices.length === 0) {
+		<div class="no-invoices-message">There are no invoices available.</div>
+	} 
+}

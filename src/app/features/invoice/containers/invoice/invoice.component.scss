@@ -1,0 +1,15 @@
+@import '../../../../styles/variables.scss';
+
+.invoice {
+	width: 40%;
+}
+
+.invoice-page-header {
+	padding: 0.2rem;
+}
+
+@media (max-width: $mobile-breakpoint) {
+	.invoice {
+		width: 100%;
+	}
+}

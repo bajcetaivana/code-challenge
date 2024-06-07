@@ -1,0 +1,52 @@
+@import '../../../../styles/variables.scss';
+
+th,
+td {
+	padding: 0.5rem;
+	font-size: 14px;
+}
+
+h6 {
+	margin: 0.2rem;
+}
+
+.invoice-card {
+	display: grid;
+	grid-template-columns: 80px auto;
+	align-items: center;
+	padding: 0 20px 0 0;
+	margin-bottom: 20px;
+	overflow: hidden;
+	& div:first-child {
+		height: 100%;
+		background-color: $primary-color;
+		display: grid;
+		place-items: center;
+		opacity: 0.5;
+		& mat-icon {
+			font-size: 40px;
+			display: block;
+			height: auto;
+			width: auto;
+			color: $white-color;
+		}
+	}
+	& div:last-child {
+		border-left: 1px solid #ccc;
+		padding-left: 20px;
+		& mat-card-content {
+			margin-top: 20px;
+		}
+	}
+}
+
+@media (max-width: $mobile-breakpoint) {
+	th,
+	td {
+		padding: 0.5rem;
+	}
+
+	.invoice-item {
+		width: 100%;
+	}
+}

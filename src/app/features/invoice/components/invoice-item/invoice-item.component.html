@@ -1,0 +1,14 @@
+<mat-card class="invoice-card">
+	<div>
+		<mat-icon>file_present</mat-icon>
+	</div>
+	<div>
+		<mat-card-header>
+			<mat-card-title-group>
+				<mat-card-title>ID: {{ invoice.id }}</mat-card-title>
+				<mat-card-subtitle>Due Date: {{ invoice.dueDate | date }}</mat-card-subtitle>
+			</mat-card-title-group>
+		</mat-card-header>
+		<mat-card-content>AMOUNT: {{ invoice.amount | currency }}</mat-card-content>
+	</div>
+</mat-card>

@@ -1,0 +1,39 @@
+.skills {
+	margin-top: 1rem;
+}
+
+.add-skill-button {
+	margin-bottom: 2rem;
+}
+
+.skill-section {
+	mat-form-field {
+		width: 40%;
+	}
+}
+
+.form-buttons {
+	display: flex;
+	justify-content: space-between;
+	padding: 16px;
+}
+
+.hide {
+	display: none;
+}
+
+mat-form-field {
+	width: 50%;
+}
+
+@media (max-width: 600px) {
+	mat-form-field {
+		width: 100%;
+	}
+
+	.skill-section {
+		mat-form-field {
+			width: 60%;
+		}
+	}
+}

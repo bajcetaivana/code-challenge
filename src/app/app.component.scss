@@ -1,0 +1,69 @@
+@import "./styles/variables.scss";
+
+@mixin flex-column {
+	display: flex;
+	flex-direction: column;
+}
+
+:host {
+	@include flex-column;
+	height: 100vh;
+}
+
+.body {
+	@include flex-column;
+	flex-grow: 1;
+	margin: 0 2rem 2rem;
+	min-height: 100vh;
+
+	@media (max-width: $mobile-breakpoint) {
+		margin: 0;
+	}
+}
+
+mat-sidenav-container {
+	height: 100%;
+}
+
+mat-sidenav {
+	width: $sidenav-width;
+}
+
+mat-sidenav-content {
+	padding: 0 $padding;
+}
+
+main {
+	flex: 1;
+}
+
+ul {
+	margin: 0;
+	padding: $padding;
+	list-style-type: none;
+	gap: $gap;
+	border-radius: 1rem;
+	margin: $gap;
+}
+
+a {
+	text-decoration: none;
+	color: $primary-color;
+
+	&:hover {
+		text-decoration: none;
+		color: $hover-color;
+	}
+}
+
+.header-text {
+	letter-spacing: 0.2rem;
+
+	a {
+		color: $white-color;
+	}
+
+	@media (max-width: $mobile-breakpoint) {
+		letter-spacing: 0.1rem;
+	}
+}
