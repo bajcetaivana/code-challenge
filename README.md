@@ -23,3 +23,13 @@ Store is integrated into the Job Ad feature because it required more interaction
 ## Running unit tests
 
 Run `npx ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+
+
+
+
+https://github.com/bajcetaivana/code-challenge/assets/16049284/1fd8ced9-828a-49be-b729-c1be30bcbd3b
+
+
+
+
