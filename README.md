@@ -15,7 +15,7 @@ Store is integrated into the Job Ad feature because it required more interaction
 ##  Run locally
 
  - Start json-server :
-   `npx json-serve --watch ./db.json`
+   `npx json-server --watch ./db.json`
  - Start ng dev server :
    `npx ng serve`
 
