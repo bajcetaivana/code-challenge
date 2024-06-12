@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import * as JobActions from "@store/actions";
 import { CommonModule, NgFor } from "@angular/common";
@@ -36,7 +36,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 	templateUrl: "./job-ad.component.html",
 	styleUrl: "./job-ad.component.scss",
 })
-export class JobAdComponent {
+export class JobAdComponent implements OnInit {
 	jobs$: Observable<JobAd[]> = this.store.select((state) => state.job.jobs);
 
 	displayedColumns: string[] = [
@@ -50,6 +50,13 @@ export class JobAdComponent {
 	component: any;
 
 	constructor(private store: Store<AppState>, private router: Router) {}
+
+	ngOnInit(): void {
+		this.jobs$ = this.store.select((state) => state.job.jobs);
+		this.jobs$.subscribe((jobs) => {
+			this.dataSource.data = jobs;
+		});
+	}
 
 	applyFilter(event: Event): void {
 		const inputValue = (event.target as HTMLInputElement).value

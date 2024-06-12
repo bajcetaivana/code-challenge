@@ -2,114 +2,142 @@
 <div class="jobs-table-filter-section">
 	<mat-form-field>
 		<mat-label>Filter table</mat-label>
-		<input matInput (keyup)="applyFilter($event)" placeholder="Ex. Job Title" #input />
+		<input
+			matInput
+			(keyup)="applyFilter($event)"
+			placeholder="Ex. Job Title"
+			#input
+		/>
 	</mat-form-field>
-	<button mat-fab color="primary" aria-label="Add new job" (click)="startCreating()">
+	<button
+		mat-fab
+		color="primary"
+		aria-label="Add new job"
+		(click)="startCreating()"
+	>
 		<mat-icon>add</mat-icon>
 	</button>
 </div>
 
 <div class="job-table-container mat-elevation-z8">
-	@if(jobs$ | async; as jobs) {
-	<mat-table [dataSource]="jobs" matSort>
-		<!-- Title Column -->
-		<ng-container matColumnDef="title">
-			<mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
-			<mat-cell *matCellDef="let row" class="padding-none">
-				<span class="mobile-label">Title</span>
-				{{ row.title }}
-			</mat-cell>
-		</ng-container>
-
-		<!-- Description Column -->
-		<ng-container matColumnDef="description">
-			<mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
-			<mat-cell *matCellDef="let row">
-				<span class="mobile-label">Description</span>
-
-				{{ row.description }}
-			</mat-cell>
-		</ng-container>
-
-		<!-- Skills Column -->
-		<ng-container matColumnDef="skills">
-			<mat-header-cell *matHeaderCellDef mat-sort-header>Skills</mat-header-cell>
-			<mat-cell *matCellDef="let row">
-				<span class="mobile-label">Skills</span>
-				{{ row.skills }}
-			</mat-cell>
-		</ng-container>
-
-		<!-- Status Column -->
-		<ng-container matColumnDef="status">
-			<mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-			<mat-cell *matCellDef="let row">
-				<span class="mobile-label">Status</span>
-				<span class="status-label" [ngClass]="row.status">
-					{{ row.status }}
-				</span>
-			</mat-cell>
-		</ng-container>
-
-		<!-- Actions Column -->
-		<ng-container matColumnDef="actions">
-			<mat-header-cell *matHeaderCellDef mat-sort-header>Actions</mat-header-cell>
-			<mat-header-cell *matHeaderCellDef></mat-header-cell>
-			<mat-cell *matCellDef="let row" class="actions">
-				@if(row.status === 'draft') {
-				<button
-					mat-mini-fab
-					color="primary"
-					aria-label="Publish"
-					color="primary"
-					matTooltip="Publish Job Ad"
-					(click)="toggleChanged(row)"
-					matTooltip="Publish Job Ad"
+	<ng-container *ngIf="jobs$ | async as jobs; else noJobs">
+		<mat-table [dataSource]="dataSource" matSort>
+			<!-- Title Column -->
+			<ng-container matColumnDef="title">
+				<mat-header-cell *matHeaderCellDef mat-sort-header
+					>Title</mat-header-cell
 				>
-					<mat-icon>published_with_changes</mat-icon>
-				</button>
-				} @else if (row.status === 'published') {
-				<button
-					mat-mini-fab
-					color="primary"
-					aria-label="Archive"
-					color="accent"
-					matTooltip="Archive Job Ad"
-					(click)="toggleChanged(row)"
-					matTooltip="Archive Job Ad"
+				<mat-cell *matCellDef="let row" class="padding-none">
+					<span class="mobile-label">Title</span>
+					{{ row.title }}
+				</mat-cell>
+			</ng-container>
+
+			<!-- Description Column -->
+			<ng-container matColumnDef="description">
+				<mat-header-cell *matHeaderCellDef mat-sort-header
+					>Description</mat-header-cell
 				>
-					<mat-icon>archive</mat-icon>
-				</button>
-				}
-				<button
-					mat-mini-fab
-					color="link"
-					(click)="startEditing(row.id)"
-					[disabled]="row.status === 'archived' || row.status === 'published'"
+				<mat-cell *matCellDef="let row">
+					<span class="mobile-label">Description</span>
+
+					{{ row.description }}
+				</mat-cell>
+			</ng-container>
+
+			<!-- Skills Column -->
+			<ng-container matColumnDef="skills">
+				<mat-header-cell *matHeaderCellDef mat-sort-header
+					>Skills</mat-header-cell
 				>
-					<mat-icon>edit</mat-icon>
-				</button>
-				<button mat-mini-fab color="warn" (click)="startDeleting(row.id)">
-					<mat-icon>delete</mat-icon>
-				</button>
-			</mat-cell>
-		</ng-container>
-		<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-		<mat-row *matRowDef="let row; columns: displayedColumns" class="job-row"></mat-row>
-		<!-- Row shown when there is no matching data. -->
-		<tr class="mat-row" *matNoDataRow>
-			<td class="mat-cell" [attr.colspan]="displayedColumns.length">
-				There are no job ads available.
-			</td>
-		</tr>
-	</mat-table>
-	} @else {
-	<mat-table>
-		<tr class="mat-row" *matNoDataRow>
-			<td class="mat-cell" [attr.colspan]="displayedColumns.length">
-				There are no job ads available.
-			</td>
-		</tr>
-	</mat-table>
-	}
+				<mat-cell *matCellDef="let row">
+					<span class="mobile-label">Skills</span>
+					{{ row.skills }}
+				</mat-cell>
+			</ng-container>
+
+			<!-- Status Column -->
+			<ng-container matColumnDef="status">
+				<mat-header-cell *matHeaderCellDef mat-sort-header
+					>Status</mat-header-cell
+				>
+				<mat-cell *matCellDef="let row">
+					<span class="mobile-label">Status</span>
+					<span class="status-label" [ngClass]="row.status">
+						{{ row.status }}
+					</span>
+				</mat-cell>
+			</ng-container>
+
+			<!-- Actions Column -->
+			<ng-container matColumnDef="actions">
+				<mat-header-cell *matHeaderCellDef mat-sort-header
+					>Actions</mat-header-cell
+				>
+				<mat-header-cell *matHeaderCellDef></mat-header-cell>
+				<mat-cell *matCellDef="let row" class="actions">
+					@if(row.status === 'draft') {
+					<button
+						mat-mini-fab
+						color="primary"
+						aria-label="Publish"
+						color="primary"
+						matTooltip="Publish Job Ad"
+						(click)="toggleChanged(row)"
+						matTooltip="Publish Job Ad"
+					>
+						<mat-icon>published_with_changes</mat-icon>
+					</button>
+					} @else if (row.status === 'published') {
+					<button
+						mat-mini-fab
+						color="primary"
+						aria-label="Archive"
+						color="accent"
+						matTooltip="Archive Job Ad"
+						(click)="toggleChanged(row)"
+						matTooltip="Archive Job Ad"
+					>
+						<mat-icon>archive</mat-icon>
+					</button>
+					}
+					<button
+						mat-mini-fab
+						color="link"
+						(click)="startEditing(row.id)"
+						[disabled]="
+							row.status === 'archived' ||
+							row.status === 'published'
+						"
+					>
+						<mat-icon>edit</mat-icon>
+					</button>
+					<button
+						mat-mini-fab
+						color="warn"
+						(click)="startDeleting(row.id)"
+					>
+						<mat-icon>delete</mat-icon>
+					</button>
+				</mat-cell>
+			</ng-container>
+			<mat-header-row
+				*matHeaderRowDef="displayedColumns"
+			></mat-header-row>
+			<mat-row
+				*matRowDef="let row; columns: displayedColumns"
+				class="job-row"
+			></mat-row>
+		</mat-table>
+	</ng-container>
+
+	<ng-template #noJobs>
+		<mat-table>
+			<tr class="mat-row" *matNoDataRow>
+				<td class="mat-cell" [attr.colspan]="displayedColumns.length">
+					There are no job ads available.
+				</td>
+			</tr>
+		</mat-table>
+	</ng-template>
 </div>

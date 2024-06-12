@@ -31,8 +31,6 @@ export class JobEffects {
 			mergeMap((action) => {
 				return this.jobService.update(action.job).pipe(
 					mergeMap((updatedJob) => {
-						console.log("updatedJob", updatedJob);
-
 						const actions = [
 							JobActions.updateJobSuccess({ job: updatedJob }),
 						];
@@ -40,7 +38,6 @@ export class JobEffects {
 					}),
 					catchError((error) => {
 						console.log("error", error);
-						// return of({ type: "NO_ACTION" });
 						return of(JobActions.updateJobFailure({ error }));
 					})
 				);
@@ -76,22 +73,6 @@ export class JobEffects {
 			})
 		)
 	);
-
-	// updateJobFailure$ = createEffect(
-	// 	() =>
-	// 		this.actions$.pipe(
-	// 			ofType(JobActions.updateJobFailure),
-	// 			mergeMap((action) => {
-	// 				console.log("updateJobFailure$", action);
-	// 				return of({ type: "NO_ACTION" });
-	// 				// Perform any necessary error handling or side effects here
-	// 				console.error("Update job failed:", action.error);
-	// 				// Optionally, dispatch additional actions or trigger side effects
-	// 				// For example, showing error messages, logging, etc.
-	// 			})
-	// 		),
-	// 	{ dispatch: false } // Set dispatch to false to prevent emitting actions
-	// );
 
 	addJob$ = createEffect(() =>
 		this.actions$.pipe(
